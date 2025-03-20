@@ -27,6 +27,7 @@ const Index = () => {
 
 
   const onSubmit = (values: z.infer<typeof formLoginSchema>) => {
+    router.push('/user/dashboard')
     console.log(values)
   }
 

@@ -1,61 +1,9 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
-/* 
-[
-  {
-    "hex": "#e6e6e6",
-    "rgb": "rgb(230, 230, 230)",
-    "token": "black-1"
-  },
-  {
-    "hex": "#c2c2c2",
-    "rgb": "rgb(194, 194, 194)",
-    "token": "black-2"
-  },
-  {
-    "hex": "#919191",
-    "rgb": "rgb(145, 145, 145)",
-    "token": "black-3"
-  },
-  {
-    "hex": "#5e5e5e",
-    "rgb": "rgb(94, 94, 94)",
-    "token": "black-4"
-  },
-  {
-    "hex": "#2e2e2e",
-    "rgb": "rgb(46, 46, 46)",
-    "token": "black-5"
-  },
-  {
-    "hex": "#000000",
-    "rgb": "rgb(0, 0, 0)",
-    "token": "black-6"
-  },
-  {
-    "hex": "#000000",
-    "rgb": "rgb(0, 0, 0)",
-    "token": "black-7"
-  },
-  {
-    "hex": "#000000",
-    "rgb": "rgb(0, 0, 0)",
-    "token": "black-8"
-  },
-  {
-    "hex": "#000000",
-    "rgb": "rgb(0, 0, 0)",
-    "token": "black-9"
-  },
-  {
-    "hex": "#000000",
-    "rgb": "rgb(0, 0, 0)",
-    "token": "black-10"
-  }
-] */
 
 @theme {
     --color-primary: #FFDF01;
@@ -100,8 +48,8 @@
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar: #fff;
+    --sidebar-foreground: #262626;
     --sidebar-primary: oklch(0.205 0 0);
     --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: oklch(0.97 0 0);
@@ -188,12 +136,15 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-
     }
   body {
     @apply bg-background text-foreground;
 
     }
 
+}
+
+*{
+  font-family: 'Poppins', sans-serif;
 }
 
