@@ -1,6 +1,7 @@
 import {
   Book,
   BookOpen,
+  CirclePlusIcon,
   type LucideIcon,
 } from "lucide-react"
 
@@ -13,6 +14,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { Dialog, DialogTrigger } from "@radix-ui/react-dialog"
+import DialogAddDocument from "./custom/dialog-add-document"
 
 export function NavProjects({
   projects,
@@ -27,7 +30,16 @@ export function NavProjects({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Dokumen Saya</SidebarGroupLabel>
+      <div className="flex justify-between items-center pr-2">
+        <SidebarGroupLabel>Dokumen Saya</SidebarGroupLabel>
+        <Dialog>
+          <DialogTrigger asChild>
+            <CirclePlusIcon className="w-5 h-5" ></CirclePlusIcon>
+          </DialogTrigger>
+          <DialogAddDocument>
+          </DialogAddDocument>
+        </Dialog>
+      </div>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>

@@ -2,8 +2,10 @@ import React from 'react'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar'
 import { Separator } from '@radix-ui/react-separator'
 import { AppSidebar } from '../app-sidebar'
+import { useRouter } from 'next/router'
 
 const LayoutSidebar = ({children} : {children: React.ReactNode}) => {
+  const router = useRouter()
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -16,7 +18,7 @@ const LayoutSidebar = ({children} : {children: React.ReactNode}) => {
           </div>
         </header>
         {/* body */}
-        <div className="py-16 px-32 bg-black-3 h-screen max-lg:p-8 max-md:p-6">
+        <div className={`bg-black-3 min-h-screen  max-lg:p-8 max-md:p-6 ${router.pathname === '/user/dashboard' ? 'py-16 px-32' : 'p-[32px]'}`}>
             {children}  
         </div>
       </SidebarInset>
