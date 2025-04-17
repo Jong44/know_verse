@@ -5,6 +5,7 @@ import "@blocknote/mantine/style.css";
 import { AddBlockButton, DragHandleButton, SideMenu, SideMenuController, useBlockNoteEditor, useComponentsContext, useCreateBlockNote } from "@blocknote/react";
 import { TrashIcon } from 'lucide-react';
 import { HideBlockButton } from './hide-block-button';
+import { DocumentService } from '@/services/document-service';
 
 const Editor = () => {
 
@@ -15,7 +16,17 @@ const Editor = () => {
     const note = {
       document: editor.document,
     }
-    console.log(note)
+    const newDetailDocument = note.document.map((block) => {
+      return {
+        id: block.id,
+        type: block.type,
+        content: block.content[0]?.text,
+        children: block.children,
+      }
+    }
+    );
+
+    DocumentService().saveDetailDocument(newDetailDocument);
 
   }
   return (

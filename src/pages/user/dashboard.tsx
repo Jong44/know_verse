@@ -1,6 +1,7 @@
 import CardDocument from '@/components/custom/card-document'
 import LayoutSidebar from '@/components/custom/layout-sidebar'
 import TimeIcon from '@/components/icons/time-icon'
+import withAuth from '@/middleware/withAuth'
 import Head from 'next/head'
 import React from 'react'
 
@@ -31,4 +32,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default withAuth(Index)

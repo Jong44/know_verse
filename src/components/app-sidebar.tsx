@@ -20,6 +20,8 @@ import {
 import Image from "next/image"
 import { NavProjects } from "./nav-projects"
 import { useRouter } from "next/router"
+import { DocumentService } from "@/services/document-service"
+import { url } from "inspector"
 
 
 
@@ -42,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ],
   })
 
-  useEffect(() => {
+  const checkActive = () => {
     const pathname = router.pathname
     const navMain = data.navMain.map((item) => {
       if (pathname.includes(item.url)) {
@@ -54,6 +56,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
     )
     setData({ ...data, navMain })
+  }
+
+  const checkAvailableProjects = () => {
+    const projects = DocumentService().getDocument()
+    if(projects?.id){
+      const newProjects = {
+        name: projects.judul,
+        url: `/user/document/${projects.id}`,
+      }
+      setData({ ...data, projects: [newProjects] })
+    }
+    console.log(projects)
+  }
+
+  useEffect(() => {
+    checkActive()
+    checkAvailableProjects()
   }, [router.pathname])
 
   return (

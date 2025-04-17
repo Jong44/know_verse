@@ -4,18 +4,23 @@ import {
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
+
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
+    
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import MoreIcon from "../icons/more-icon"
+import Link from "next/link"
 
-const DropdownDocument = () => {
+interface DropdownDocumentProps {
+    finishedUrl?: string
+    presentationUrl?: string
+}
+
+const DropdownDocument: React.FC<DropdownDocumentProps> = ({
+    finishedUrl,
+    presentationUrl,
+}) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -23,12 +28,16 @@ const DropdownDocument = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        Presentation
-                    </DropdownMenuItem>
+                    <Link href={presentationUrl ?? "/example"}>
+                        <DropdownMenuItem>
+                            Presentation
+                        </DropdownMenuItem>
+                    </Link>
+                    <Link href={finishedUrl ?? "/example"}>
                     <DropdownMenuItem>
                         Finished
                     </DropdownMenuItem>
+                    </Link>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>

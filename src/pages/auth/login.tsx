@@ -11,6 +11,7 @@ import formLoginSchema from '@/lib/formSchema/formLoginSchema'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useRouter } from 'next/router'
+import { AuthService } from '@/services/auth-service'
 
 
 
@@ -26,10 +27,20 @@ const Index = () => {
 
 
 
-  const onSubmit = (values: z.infer<typeof formLoginSchema>) => {
-    router.push('/user/dashboard')
-    console.log(values)
-  }
+  const onSubmit = async (values: z.infer<typeof formLoginSchema>) => {
+    const formData = {
+      email: values.email,
+      password: values.password,
+    };
+  
+    const response = await AuthService().login(formData);
+  
+    if (response) {
+      router.push('/user/dashboard');
+    } else {
+      console.error('Login failed');
+    }
+  };
 
   return (
     <>

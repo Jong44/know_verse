@@ -20,11 +20,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import useCreateDocument from '@/store/create-document'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { useForm } from 'react-hook-form'
+import { DialogClose } from '@radix-ui/react-dialog'
+import { DocumentService } from '@/services/document-service'
 
 const FormSchema = z.object({
   judul: z.string().min(1, 'Judul tidak boleh kosong'),
@@ -41,6 +42,7 @@ const DialogAddDocument = () => {
 
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data)
     const { judul, mataKuliah } = data
     const newDocument = {
       id: crypto.randomUUID(),
@@ -52,9 +54,8 @@ const DialogAddDocument = () => {
       updated_at: new Date().toISOString(),
       created_at: new Date().toISOString(),
     }
-    useCreateDocument.setState({ document: newDocument })
+    DocumentService().createDocument(newDocument)
     form.reset()
-
   }
 
 
@@ -121,7 +122,9 @@ const DialogAddDocument = () => {
             </div>
           </div>
           <DialogFooter className="pt-2">
-          <Button type="submit">Buat Dokumen</Button>
+          <DialogClose asChild>
+            <Button type="submit">Buat Dokumen</Button>
+          </DialogClose>
         </DialogFooter>
         </form>
       </Form>

@@ -30,6 +30,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { AuthService } from "@/services/auth-service"
+import { useRouter } from "next/router"
 
 export function NavUser({
   user,
@@ -40,7 +42,18 @@ export function NavUser({
     avatar: string
   }
 }) {
+  const router = useRouter();
   const { isMobile } = useSidebar()
+
+  const handleLogout = async () => {
+    const response = await AuthService().logout();
+
+    if (response) {
+      router.push('/auth/login');
+    } else {
+      console.error('Logout failed', response);
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -81,11 +94,11 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Settings />
-                Pengaturan
-              </DropdownMenuItem>
             <DropdownMenuItem>
+              <Settings />
+              Pengaturan
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Keluar
             </DropdownMenuItem>
