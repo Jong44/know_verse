@@ -3,7 +3,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui
 import DocumentIcon from '../icons/document-icon'
 import MoreIcon from '../icons/more-icon'
 
-const CardDocument = () => {
+interface CardDocumentProps {
+  id?: number
+  judul?: string  
+  kode_matakuliah?: string
+  finishedUrl?: string
+  presentationUrl?: string,
+  time?: string
+}
+
+const CardDocument: React.FC<CardDocumentProps> = ({
+  id,
+  judul,
+  kode_matakuliah,
+  finishedUrl,
+  presentationUrl,
+  time
+}) => {
+
   return (
     <Card className='cursor-pointer hover:shadow-xs'>
       <CardHeader className='flex items-center justify-between'>  
@@ -16,8 +33,8 @@ const CardDocument = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <CardTitle className='text-base text-ellipsis line-clamp-1'>Surat Keterangan Domisili</CardTitle>
-        <CardDescription className='mt-2 text-sm'>12 Menit yang lalu</CardDescription>
+        <CardTitle className='text-base text-ellipsis line-clamp-1'>{judul}</CardTitle>
+        <CardDescription className='mt-2 text-sm'>{time}</CardDescription>
       </CardContent>
     </Card>
   )

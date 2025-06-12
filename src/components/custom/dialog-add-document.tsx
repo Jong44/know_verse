@@ -26,14 +26,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useForm } from 'react-hook-form'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { DocumentService } from '@/services/document-service'
+import { toast } from "sonner"
+import { useRouter } from 'next/router'
+ 
 
 const FormSchema = z.object({
   judul: z.string().min(1, 'Judul tidak boleh kosong'),
-  mataKuliah: z.string().min(1, 'Mata kuliah tidak boleh kosong'),
+  kode_matakuliah: z.string().min(1, 'Mata kuliah tidak boleh kosong'),
 })
 
 
 const DialogAddDocument = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -41,20 +45,31 @@ const DialogAddDocument = () => {
   const { register, handleSubmit, formState: { errors } } = form
 
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
-    const { judul, mataKuliah } = data
-    const newDocument = {
-      id: crypto.randomUUID(),
-      judul,
-      kode_matkul: mataKuliah,
-      url_presentation: "",
-      url_finished: "",
-      detail_document: [],
-      updated_at: new Date().toISOString(),
-      created_at: new Date().toISOString(),
+  async function onSubmit(data: z.infer<typeof FormSchema>)   {
+    const { judul, kode_matakuliah } = data
+
+    const response = await fetch('/api/tutorial', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        judul,
+        kode_matakuliah,
+        createor_email: 'johnDoe', 
+      }),
+    })
+
+    const result = await response.json()
+    if (result.status === 'success') {
+      toast.success('Dokumen berhasil dibuat')
+      router.push(`/user/presentation/${result.data.id}`)
+    } else {
+      toast.error(result.message)
     }
-    DocumentService().createDocument(newDocument)
+
+    
+
     form.reset()
   }
 
@@ -95,14 +110,14 @@ const DialogAddDocument = () => {
             <div className="col-span-3">
               <FormField
                 control={form.control}
-                name="mataKuliah"
+                name="kode_matakuliah"
                 render={({ field }) => (
                   <FormItem className='w-full'>
                     <Select
                       defaultValue={field.value}
                       onValueChange={(value) => field.onChange(value)}
                     >
-                      <SelectTrigger id="mataKuliah" className='w-full'>
+                      <SelectTrigger id="kode_matakuliah" className='w-full'>
                         <SelectValue placeholder="Pilih mata kuliah" />
                       </SelectTrigger>
                       <SelectContent>
@@ -128,6 +143,7 @@ const DialogAddDocument = () => {
         </DialogFooter>
         </form>
       </Form>
+
     </DialogContent>
   )
 }

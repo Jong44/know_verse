@@ -16,17 +16,28 @@ import {
 } from "@/components/ui/sidebar"
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog"
 import DialogAddDocument from "./custom/dialog-add-document"
+import { Toaster } from "sonner"
 
 export function NavProjects({
   projects,
+  loading = false,
 }: {
   projects: {
+    id: number,
     name: string
     url: string
     icon: LucideIcon
   }[]
 }) {
   const { isMobile } = useSidebar()
+
+  if(loading) {
+    return (
+      <p>
+        loading...
+      </p>
+    )
+  }
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -42,7 +53,7 @@ export function NavProjects({
       </div>
       <SidebarMenu>
         {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
+          <SidebarMenuItem key={item.id}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
                 <BookOpen />
@@ -51,7 +62,7 @@ export function NavProjects({
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
-
+        <Toaster/>
       </SidebarMenu>
     </SidebarGroup>
   )

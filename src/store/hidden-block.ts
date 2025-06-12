@@ -1,27 +1,44 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-interface HiddenBlock { 
-    id: string;
-    hidden: boolean;
-}
+type BlockMeta = {
+  status: 'visible' | 'hidden';
+  detailId?: number;
+};
 
-interface ListHiddenBlock {
-    hiddenBlocks: HiddenBlock[];
-    updateItems: (id: string) => void;
-}
+type BlockMetaStore = {
+  meta: Record<string, BlockMeta>; // blockId -> metadata
+  setStatus: (blockId: string, status: 'visible' | 'hidden') => void;
+  setDetailId: (blockId: string, detailId: number) => void;
+  setBulk: (meta: Record<string, BlockMeta>) => void;
+};
 
-const useHiddenBlock = create<ListHiddenBlock>((set) => ({
-    hiddenBlocks: [],
+export const useBlockMetaStore = create<BlockMetaStore>((set) => ({
+  meta: {},
 
-    updateItems: (id: string) => set((state) => {
-        const block = state.hiddenBlocks.find((block) => block.id === id);
-        if (block) {
-            block.hidden = !block.hidden;
-        } else {
-            state.hiddenBlocks.push({id, hidden: true});
-        }
-        return { hiddenBlocks: state.hiddenBlocks };
-    })
+  setStatus: (blockId, status) =>
+    set((state) => ({
+      meta: {
+        ...state.meta,
+        [blockId]: {
+          ...state.meta[blockId],
+          status,
+        },
+      },
+    })),
+
+  setDetailId: (blockId, detailId) =>
+    set((state) => ({
+      meta: {
+        ...state.meta,
+        [blockId]: {
+          ...state.meta[blockId],
+          detailId,
+        },
+      },
+    })),
+
+  setBulk: (bulkMeta) =>
+    set(() => ({
+      meta: bulkMeta,
+    })),
 }));
-
-export default useHiddenBlock;

@@ -1,12 +1,12 @@
 interface DocType {
-    id: string;
+    id: number;
     judul: string;
-    kode_matkul: string;
+    kode_matakuliah?: string;
     url_presentation?: string;
     url_finished?: string;
     detail_document?: DetailDocType[];
-    updated_at: string;
-    created_at: string;
+    updated_at: Date;
+    created_at: Date;
 }
 
 interface DetailDocType {

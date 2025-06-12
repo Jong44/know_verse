@@ -20,8 +20,6 @@ import {
 import Image from "next/image"
 import { NavProjects } from "./nav-projects"
 import { useRouter } from "next/router"
-import { DocumentService } from "@/services/document-service"
-import { url } from "inspector"
 
 
 
@@ -44,6 +42,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ],
   })
 
+  const [loading, setLoading] = useState(false)
+
   const checkActive = () => {
     const pathname = router.pathname
     const navMain = data.navMain.map((item) => {
@@ -58,16 +58,32 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setData({ ...data, navMain })
   }
 
-  const checkAvailableProjects = () => {
-    const projects = DocumentService().getDocument()
-    if(projects?.id){
-      const newProjects = {
-        name: projects.judul,
-        url: `/user/document/${projects.id}`,
+  const checkAvailableProjects = async () => {
+    setLoading(true)
+    try {
+      const projects = await fetch('/api/tutorial', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const projectsData = await projects.json()
+      if (projectsData.status === 'success') {
+        const newProjects = projectsData.data.map((project: any) => ({
+          name: project.judul,
+          url: `/user/document/${project.id}`,
+        }))
+        setData({ ...data, projects: newProjects })
+      } else {
+        console.error('Failed to fetch projects:', projectsData.message)
       }
-      setData({ ...data, projects: [newProjects] })
+    } catch (error) {
+      console.error('Error fetching projects:', error)
     }
-    console.log(projects)
+    finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -77,15 +93,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="border-b max-h-16"> 
+      <SidebarHeader className="border-b max-h-16">
         <SidebarMenu>
           <SidebarMenuItem >
-          <SidebarMenuButton
-               onClick={()=>router.push('/user/dashboard')}
+            <SidebarMenuButton
+              onClick={() => router.push('/user/dashboard')}
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground gap-3 hover:bg-white active:bg-white cursor-pointer"
             >
-              <Image src={'/images/logo.png'} alt={"Logo"} width={40} height={40}/>
+              <Image src={'/images/logo.png'} alt={"Logo"} width={40} height={40} />
               <h1 className="font-bold text-xl">KnowVerse</h1>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -93,7 +109,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavProjects projects={data.projects} loading={loading} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

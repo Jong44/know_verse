@@ -9,27 +9,25 @@ import { DocumentService } from '@/services/document-service';
 
 
 
-const ViewBlock = () => {
-  const [initialContent, setInitialContent] = useState<
-    PartialBlock[] | undefined | "loading"
-  >("loading");
+const ViewBlock = ({
+  initialContent,
+} : {
+  initialContent: PartialBlock[] | "loading";
+}) => {
 
-  useEffect(() => {
-    DocumentService().getDetailDocument().then((content) => {
-      setInitialContent(content);
-    });
-  }, []);
+  console.log("initialContent", initialContent)
 
   const editor = useMemo(() => {
     if (initialContent === "loading") {
       return undefined;
     }
-    return BlockNoteEditor.create({ initialContent });
+    return BlockNoteEditor.create({ initialContent: initialContent,});
   }, [initialContent]);
  
   if (editor === undefined) {
     return "Loading content...";
   }
+
   return (
     <BlockNoteView editor={editor} theme={"light"} className='max-w-[1150px]' formattingToolbar={false} editable={false}>
     </BlockNoteView>
