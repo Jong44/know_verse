@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -37,6 +37,7 @@ const FormSchema = z.object({
 
 
 const DialogAddDocument = () => {
+  const [matkul, setMatkul] = React.useState<any>([])
   const router = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -72,6 +73,40 @@ const DialogAddDocument = () => {
 
     form.reset()
   }
+
+  const getMataKuliahOptions = async () => {
+    console.log('localStorage.getItem("token")', localStorage.getItem('token'))
+    if (localStorage.getItem('token') === null) {
+      toast.error('Anda harus login terlebih dahulu')
+      return
+    }
+    const res = await fetch('https://jwt-auth-eight-neon.vercel.app/getMakul', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch mata kuliah options')
+    }
+    const data = await res.json()
+
+    console.log('Mata Kuliah Options:', data)
+
+    setMatkul(data.data)
+  }
+
+  useEffect(() => {
+    getMataKuliahOptions().catch((error) => {
+      console.error('Error fetching mata kuliah options:', error)
+      toast.error('Gagal memuat mata kuliah')
+    })
+  }, [])
+
+
+
 
 
   return (
@@ -123,10 +158,11 @@ const DialogAddDocument = () => {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Daftar Mata Kuliah</SelectLabel>
-                          <SelectItem value="pbo">Pemrograman Berorientasi Objek</SelectItem>
-                          <SelectItem value="ai">Kecerdasan Buatan</SelectItem>
-                          <SelectItem value="ml">Machine Learning</SelectItem>
-                          <SelectItem value="network">Jaringan Komputer</SelectItem>
+                          { matkul && matkul.map((item, index) => (
+                            <SelectItem key={index.kdmk} value={item.kdmk}>
+                              {item.nama}
+                            </SelectItem>
+                          ))}
                         </SelectGroup>
                       </SelectContent>
                     </Select>

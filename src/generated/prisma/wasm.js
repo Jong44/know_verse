@@ -142,6 +142,14 @@ exports.Prisma.Tutorial_detailScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Images_tutorialScalarFieldEnum = {
+  id: 'id',
+  tutorial_detail_id: 'tutorial_detail_id',
+  url: 'url',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -176,10 +184,16 @@ exports.Prisma.tutorial_detailOrderByRelevanceFieldEnum = {
   status: 'status'
 };
 
+exports.Prisma.images_tutorialOrderByRelevanceFieldEnum = {
+  tutorial_detail_id: 'tutorial_detail_id',
+  url: 'url'
+};
+
 
 exports.Prisma.ModelName = {
   master_tutorial: 'master_tutorial',
-  tutorial_detail: 'tutorial_detail'
+  tutorial_detail: 'tutorial_detail',
+  images_tutorial: 'images_tutorial'
 };
 
 /**

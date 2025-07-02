@@ -7,7 +7,7 @@ import { TrashIcon } from 'lucide-react';
 import { HideBlockButton } from './hide-block-button';
 import { PartialBlock } from '@blocknote/core';
 import { debounce, set } from 'lodash';
-import { uploadFileSupabase } from '@/lib/supabase';
+import { getFileUrlSupabase, uploadFileSupabase } from '@/lib/supabase';
 
 interface Document {
   id: string | undefined;
@@ -37,22 +37,9 @@ const Editor: React.FC<Document> = ({
       throw new Error("No file provided");
     }
 
-    const uploadSupabse = await uploadFileSupabase(file, `note/${file.name}`);
-    if (uploadSupabse.error) {
-      throw new Error(`Error uploading file: ${uploadSupabse.error.message}`);
-    }
-    
-    const body = new FormData();
-    body.append("file", file);
-
-    const ret = await fetch("https://tmpfiles.org/api/v1/upload", {
-      method: "POST",
-      body: body,
-    });
-    return (await ret.json()).data.url.replace(
-      "tmpfiles.org/",
-      "tmpfiles.org/dl/",
-    );
+    const publicUrl = await uploadFileSupabase(file, `note/notes-${file.name}`);
+    console.log("File uploaded successfully:", publicUrl);
+    return publicUrl;
   }
 
   const onChanges = (blocks: PartialBlock[]) => {

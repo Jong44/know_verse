@@ -46,7 +46,12 @@ export function NavUser({
   const { isMobile } = useSidebar()
 
   const handleLogout = async () => {
-    const response = await AuthService().logout();
+    const response = await fetch('https://jwt-auth-eight-neon.vercel.app/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     if (response) {
       router.push('/auth/login');

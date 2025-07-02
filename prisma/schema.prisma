@@ -18,22 +18,32 @@ model master_tutorial {
   id               Int               @id @default(autoincrement())
   judul            String
   kode_matakuliah  String
-  url_presentation String @default("")
-  url_finished     String @default("")
-  createor_email   String @default("")
+  url_presentation String            @default("")
+  url_finished     String            @default("")
+  createor_email   String            @default("")
   created_at       DateTime          @default(now())
   updated_at       DateTime          @updatedAt
   tutorial_detail  tutorial_detail[]
 }
 
 model tutorial_detail {
-  id                  String              @id
-  master_tutorial_id  Int
-  type                String
-  order               Int
-  status              String
-  content_json        Json             
-  created_at          DateTime         @default(now())
-  updated_at          DateTime         @updatedAt
-  master_tutorial     master_tutorial  @relation(fields: [master_tutorial_id], references: [id])
+  id                 String            @id
+  master_tutorial_id Int
+  type               String
+  order              Int
+  status             String
+  content_json       Json
+  created_at         DateTime          @default(now())
+  updated_at         DateTime          @updatedAt
+  master_tutorial    master_tutorial   @relation(fields: [master_tutorial_id], references: [id])
+  images_tutorial    images_tutorial[]
+}
+
+model images_tutorial {
+  id                 Int             @id @default(autoincrement())
+  tutorial_detail_id String
+  url                String
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
+  tutorial_detail    tutorial_detail @relation(fields: [tutorial_detail_id], references: [id])
 }

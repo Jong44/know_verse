@@ -33,9 +33,23 @@ const Index = () => {
       password: values.password,
     };
   
-    const response = await AuthService().login(formData);
+    const response = await fetch('https://jwt-auth-eight-neon.vercel.app/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Login failed:', errorData);
+      return;
+    }
   
     if (response) {
+      console.log('Login successful', data);
+      localStorage.setItem('token', data.refreshToken);
       router.push('/user/dashboard');
     } else {
       console.error('Login failed');

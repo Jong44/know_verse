@@ -23,6 +23,11 @@ export type master_tutorial = $Result.DefaultSelection<Prisma.$master_tutorialPa
  * 
  */
 export type tutorial_detail = $Result.DefaultSelection<Prisma.$tutorial_detailPayload>
+/**
+ * Model images_tutorial
+ * 
+ */
+export type images_tutorial = $Result.DefaultSelection<Prisma.$images_tutorialPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get tutorial_detail(): Prisma.tutorial_detailDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.images_tutorial`: Exposes CRUD operations for the **images_tutorial** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Images_tutorials
+    * const images_tutorials = await prisma.images_tutorial.findMany()
+    * ```
+    */
+  get images_tutorial(): Prisma.images_tutorialDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     master_tutorial: 'master_tutorial',
-    tutorial_detail: 'tutorial_detail'
+    tutorial_detail: 'tutorial_detail',
+    images_tutorial: 'images_tutorial'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "master_tutorial" | "tutorial_detail"
+      modelProps: "master_tutorial" | "tutorial_detail" | "images_tutorial"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -764,6 +780,72 @@ export namespace Prisma {
           }
         }
       }
+      images_tutorial: {
+        payload: Prisma.$images_tutorialPayload<ExtArgs>
+        fields: Prisma.images_tutorialFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.images_tutorialFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.images_tutorialFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload>
+          }
+          findFirst: {
+            args: Prisma.images_tutorialFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.images_tutorialFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload>
+          }
+          findMany: {
+            args: Prisma.images_tutorialFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload>[]
+          }
+          create: {
+            args: Prisma.images_tutorialCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload>
+          }
+          createMany: {
+            args: Prisma.images_tutorialCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.images_tutorialDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload>
+          }
+          update: {
+            args: Prisma.images_tutorialUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload>
+          }
+          deleteMany: {
+            args: Prisma.images_tutorialDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.images_tutorialUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.images_tutorialUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$images_tutorialPayload>
+          }
+          aggregate: {
+            args: Prisma.Images_tutorialAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImages_tutorial>
+          }
+          groupBy: {
+            args: Prisma.images_tutorialGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Images_tutorialGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.images_tutorialCountArgs<ExtArgs>
+            result: $Utils.Optional<Images_tutorialCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -850,6 +932,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     master_tutorial?: master_tutorialOmit
     tutorial_detail?: tutorial_detailOmit
+    images_tutorial?: images_tutorialOmit
   }
 
   /* Types for Logging */
@@ -967,6 +1050,37 @@ export namespace Prisma {
    */
   export type Master_tutorialCountOutputTypeCountTutorial_detailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: tutorial_detailWhereInput
+  }
+
+
+  /**
+   * Count Type Tutorial_detailCountOutputType
+   */
+
+  export type Tutorial_detailCountOutputType = {
+    images_tutorial: number
+  }
+
+  export type Tutorial_detailCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images_tutorial?: boolean | Tutorial_detailCountOutputTypeCountImages_tutorialArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Tutorial_detailCountOutputType without action
+   */
+  export type Tutorial_detailCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tutorial_detailCountOutputType
+     */
+    select?: Tutorial_detailCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Tutorial_detailCountOutputType without action
+   */
+  export type Tutorial_detailCountOutputTypeCountImages_tutorialArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: images_tutorialWhereInput
   }
 
 
@@ -2219,6 +2333,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     master_tutorial?: boolean | master_tutorialDefaultArgs<ExtArgs>
+    images_tutorial?: boolean | tutorial_detail$images_tutorialArgs<ExtArgs>
+    _count?: boolean | Tutorial_detailCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tutorial_detail"]>
 
 
@@ -2237,12 +2353,15 @@ export namespace Prisma {
   export type tutorial_detailOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "master_tutorial_id" | "type" | "order" | "status" | "content_json" | "created_at" | "updated_at", ExtArgs["result"]["tutorial_detail"]>
   export type tutorial_detailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     master_tutorial?: boolean | master_tutorialDefaultArgs<ExtArgs>
+    images_tutorial?: boolean | tutorial_detail$images_tutorialArgs<ExtArgs>
+    _count?: boolean | Tutorial_detailCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $tutorial_detailPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tutorial_detail"
     objects: {
       master_tutorial: Prisma.$master_tutorialPayload<ExtArgs>
+      images_tutorial: Prisma.$images_tutorialPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2594,6 +2713,7 @@ export namespace Prisma {
   export interface Prisma__tutorial_detailClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     master_tutorial<T extends master_tutorialDefaultArgs<ExtArgs> = {}>(args?: Subset<T, master_tutorialDefaultArgs<ExtArgs>>): Prisma__master_tutorialClient<$Result.GetResult<Prisma.$master_tutorialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    images_tutorial<T extends tutorial_detail$images_tutorialArgs<ExtArgs> = {}>(args?: Subset<T, tutorial_detail$images_tutorialArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2974,6 +3094,30 @@ export namespace Prisma {
   }
 
   /**
+   * tutorial_detail.images_tutorial
+   */
+  export type tutorial_detail$images_tutorialArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    where?: images_tutorialWhereInput
+    orderBy?: images_tutorialOrderByWithRelationInput | images_tutorialOrderByWithRelationInput[]
+    cursor?: images_tutorialWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Images_tutorialScalarFieldEnum | Images_tutorialScalarFieldEnum[]
+  }
+
+  /**
    * tutorial_detail without action
    */
   export type tutorial_detailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2989,6 +3133,969 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: tutorial_detailInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model images_tutorial
+   */
+
+  export type AggregateImages_tutorial = {
+    _count: Images_tutorialCountAggregateOutputType | null
+    _avg: Images_tutorialAvgAggregateOutputType | null
+    _sum: Images_tutorialSumAggregateOutputType | null
+    _min: Images_tutorialMinAggregateOutputType | null
+    _max: Images_tutorialMaxAggregateOutputType | null
+  }
+
+  export type Images_tutorialAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Images_tutorialSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Images_tutorialMinAggregateOutputType = {
+    id: number | null
+    tutorial_detail_id: string | null
+    url: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Images_tutorialMaxAggregateOutputType = {
+    id: number | null
+    tutorial_detail_id: string | null
+    url: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Images_tutorialCountAggregateOutputType = {
+    id: number
+    tutorial_detail_id: number
+    url: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Images_tutorialAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type Images_tutorialSumAggregateInputType = {
+    id?: true
+  }
+
+  export type Images_tutorialMinAggregateInputType = {
+    id?: true
+    tutorial_detail_id?: true
+    url?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Images_tutorialMaxAggregateInputType = {
+    id?: true
+    tutorial_detail_id?: true
+    url?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Images_tutorialCountAggregateInputType = {
+    id?: true
+    tutorial_detail_id?: true
+    url?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Images_tutorialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which images_tutorial to aggregate.
+     */
+    where?: images_tutorialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images_tutorials to fetch.
+     */
+    orderBy?: images_tutorialOrderByWithRelationInput | images_tutorialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: images_tutorialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images_tutorials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images_tutorials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned images_tutorials
+    **/
+    _count?: true | Images_tutorialCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Images_tutorialAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Images_tutorialSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Images_tutorialMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Images_tutorialMaxAggregateInputType
+  }
+
+  export type GetImages_tutorialAggregateType<T extends Images_tutorialAggregateArgs> = {
+        [P in keyof T & keyof AggregateImages_tutorial]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImages_tutorial[P]>
+      : GetScalarType<T[P], AggregateImages_tutorial[P]>
+  }
+
+
+
+
+  export type images_tutorialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: images_tutorialWhereInput
+    orderBy?: images_tutorialOrderByWithAggregationInput | images_tutorialOrderByWithAggregationInput[]
+    by: Images_tutorialScalarFieldEnum[] | Images_tutorialScalarFieldEnum
+    having?: images_tutorialScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Images_tutorialCountAggregateInputType | true
+    _avg?: Images_tutorialAvgAggregateInputType
+    _sum?: Images_tutorialSumAggregateInputType
+    _min?: Images_tutorialMinAggregateInputType
+    _max?: Images_tutorialMaxAggregateInputType
+  }
+
+  export type Images_tutorialGroupByOutputType = {
+    id: number
+    tutorial_detail_id: string
+    url: string
+    created_at: Date
+    updated_at: Date
+    _count: Images_tutorialCountAggregateOutputType | null
+    _avg: Images_tutorialAvgAggregateOutputType | null
+    _sum: Images_tutorialSumAggregateOutputType | null
+    _min: Images_tutorialMinAggregateOutputType | null
+    _max: Images_tutorialMaxAggregateOutputType | null
+  }
+
+  type GetImages_tutorialGroupByPayload<T extends images_tutorialGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Images_tutorialGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Images_tutorialGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Images_tutorialGroupByOutputType[P]>
+            : GetScalarType<T[P], Images_tutorialGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type images_tutorialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tutorial_detail_id?: boolean
+    url?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    tutorial_detail?: boolean | tutorial_detailDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["images_tutorial"]>
+
+
+
+  export type images_tutorialSelectScalar = {
+    id?: boolean
+    tutorial_detail_id?: boolean
+    url?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type images_tutorialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tutorial_detail_id" | "url" | "created_at" | "updated_at", ExtArgs["result"]["images_tutorial"]>
+  export type images_tutorialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tutorial_detail?: boolean | tutorial_detailDefaultArgs<ExtArgs>
+  }
+
+  export type $images_tutorialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "images_tutorial"
+    objects: {
+      tutorial_detail: Prisma.$tutorial_detailPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      tutorial_detail_id: string
+      url: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["images_tutorial"]>
+    composites: {}
+  }
+
+  type images_tutorialGetPayload<S extends boolean | null | undefined | images_tutorialDefaultArgs> = $Result.GetResult<Prisma.$images_tutorialPayload, S>
+
+  type images_tutorialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<images_tutorialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Images_tutorialCountAggregateInputType | true
+    }
+
+  export interface images_tutorialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['images_tutorial'], meta: { name: 'images_tutorial' } }
+    /**
+     * Find zero or one Images_tutorial that matches the filter.
+     * @param {images_tutorialFindUniqueArgs} args - Arguments to find a Images_tutorial
+     * @example
+     * // Get one Images_tutorial
+     * const images_tutorial = await prisma.images_tutorial.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends images_tutorialFindUniqueArgs>(args: SelectSubset<T, images_tutorialFindUniqueArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Images_tutorial that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {images_tutorialFindUniqueOrThrowArgs} args - Arguments to find a Images_tutorial
+     * @example
+     * // Get one Images_tutorial
+     * const images_tutorial = await prisma.images_tutorial.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends images_tutorialFindUniqueOrThrowArgs>(args: SelectSubset<T, images_tutorialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Images_tutorial that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {images_tutorialFindFirstArgs} args - Arguments to find a Images_tutorial
+     * @example
+     * // Get one Images_tutorial
+     * const images_tutorial = await prisma.images_tutorial.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends images_tutorialFindFirstArgs>(args?: SelectSubset<T, images_tutorialFindFirstArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Images_tutorial that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {images_tutorialFindFirstOrThrowArgs} args - Arguments to find a Images_tutorial
+     * @example
+     * // Get one Images_tutorial
+     * const images_tutorial = await prisma.images_tutorial.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends images_tutorialFindFirstOrThrowArgs>(args?: SelectSubset<T, images_tutorialFindFirstOrThrowArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Images_tutorials that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {images_tutorialFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Images_tutorials
+     * const images_tutorials = await prisma.images_tutorial.findMany()
+     * 
+     * // Get first 10 Images_tutorials
+     * const images_tutorials = await prisma.images_tutorial.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const images_tutorialWithIdOnly = await prisma.images_tutorial.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends images_tutorialFindManyArgs>(args?: SelectSubset<T, images_tutorialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Images_tutorial.
+     * @param {images_tutorialCreateArgs} args - Arguments to create a Images_tutorial.
+     * @example
+     * // Create one Images_tutorial
+     * const Images_tutorial = await prisma.images_tutorial.create({
+     *   data: {
+     *     // ... data to create a Images_tutorial
+     *   }
+     * })
+     * 
+     */
+    create<T extends images_tutorialCreateArgs>(args: SelectSubset<T, images_tutorialCreateArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Images_tutorials.
+     * @param {images_tutorialCreateManyArgs} args - Arguments to create many Images_tutorials.
+     * @example
+     * // Create many Images_tutorials
+     * const images_tutorial = await prisma.images_tutorial.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends images_tutorialCreateManyArgs>(args?: SelectSubset<T, images_tutorialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Images_tutorial.
+     * @param {images_tutorialDeleteArgs} args - Arguments to delete one Images_tutorial.
+     * @example
+     * // Delete one Images_tutorial
+     * const Images_tutorial = await prisma.images_tutorial.delete({
+     *   where: {
+     *     // ... filter to delete one Images_tutorial
+     *   }
+     * })
+     * 
+     */
+    delete<T extends images_tutorialDeleteArgs>(args: SelectSubset<T, images_tutorialDeleteArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Images_tutorial.
+     * @param {images_tutorialUpdateArgs} args - Arguments to update one Images_tutorial.
+     * @example
+     * // Update one Images_tutorial
+     * const images_tutorial = await prisma.images_tutorial.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends images_tutorialUpdateArgs>(args: SelectSubset<T, images_tutorialUpdateArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Images_tutorials.
+     * @param {images_tutorialDeleteManyArgs} args - Arguments to filter Images_tutorials to delete.
+     * @example
+     * // Delete a few Images_tutorials
+     * const { count } = await prisma.images_tutorial.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends images_tutorialDeleteManyArgs>(args?: SelectSubset<T, images_tutorialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images_tutorials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {images_tutorialUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Images_tutorials
+     * const images_tutorial = await prisma.images_tutorial.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends images_tutorialUpdateManyArgs>(args: SelectSubset<T, images_tutorialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Images_tutorial.
+     * @param {images_tutorialUpsertArgs} args - Arguments to update or create a Images_tutorial.
+     * @example
+     * // Update or create a Images_tutorial
+     * const images_tutorial = await prisma.images_tutorial.upsert({
+     *   create: {
+     *     // ... data to create a Images_tutorial
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Images_tutorial we want to update
+     *   }
+     * })
+     */
+    upsert<T extends images_tutorialUpsertArgs>(args: SelectSubset<T, images_tutorialUpsertArgs<ExtArgs>>): Prisma__images_tutorialClient<$Result.GetResult<Prisma.$images_tutorialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Images_tutorials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {images_tutorialCountArgs} args - Arguments to filter Images_tutorials to count.
+     * @example
+     * // Count the number of Images_tutorials
+     * const count = await prisma.images_tutorial.count({
+     *   where: {
+     *     // ... the filter for the Images_tutorials we want to count
+     *   }
+     * })
+    **/
+    count<T extends images_tutorialCountArgs>(
+      args?: Subset<T, images_tutorialCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Images_tutorialCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Images_tutorial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Images_tutorialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Images_tutorialAggregateArgs>(args: Subset<T, Images_tutorialAggregateArgs>): Prisma.PrismaPromise<GetImages_tutorialAggregateType<T>>
+
+    /**
+     * Group by Images_tutorial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {images_tutorialGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends images_tutorialGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: images_tutorialGroupByArgs['orderBy'] }
+        : { orderBy?: images_tutorialGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, images_tutorialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImages_tutorialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the images_tutorial model
+   */
+  readonly fields: images_tutorialFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for images_tutorial.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__images_tutorialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tutorial_detail<T extends tutorial_detailDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tutorial_detailDefaultArgs<ExtArgs>>): Prisma__tutorial_detailClient<$Result.GetResult<Prisma.$tutorial_detailPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the images_tutorial model
+   */
+  interface images_tutorialFieldRefs {
+    readonly id: FieldRef<"images_tutorial", 'Int'>
+    readonly tutorial_detail_id: FieldRef<"images_tutorial", 'String'>
+    readonly url: FieldRef<"images_tutorial", 'String'>
+    readonly created_at: FieldRef<"images_tutorial", 'DateTime'>
+    readonly updated_at: FieldRef<"images_tutorial", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * images_tutorial findUnique
+   */
+  export type images_tutorialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * Filter, which images_tutorial to fetch.
+     */
+    where: images_tutorialWhereUniqueInput
+  }
+
+  /**
+   * images_tutorial findUniqueOrThrow
+   */
+  export type images_tutorialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * Filter, which images_tutorial to fetch.
+     */
+    where: images_tutorialWhereUniqueInput
+  }
+
+  /**
+   * images_tutorial findFirst
+   */
+  export type images_tutorialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * Filter, which images_tutorial to fetch.
+     */
+    where?: images_tutorialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images_tutorials to fetch.
+     */
+    orderBy?: images_tutorialOrderByWithRelationInput | images_tutorialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for images_tutorials.
+     */
+    cursor?: images_tutorialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images_tutorials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images_tutorials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of images_tutorials.
+     */
+    distinct?: Images_tutorialScalarFieldEnum | Images_tutorialScalarFieldEnum[]
+  }
+
+  /**
+   * images_tutorial findFirstOrThrow
+   */
+  export type images_tutorialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * Filter, which images_tutorial to fetch.
+     */
+    where?: images_tutorialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images_tutorials to fetch.
+     */
+    orderBy?: images_tutorialOrderByWithRelationInput | images_tutorialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for images_tutorials.
+     */
+    cursor?: images_tutorialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images_tutorials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images_tutorials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of images_tutorials.
+     */
+    distinct?: Images_tutorialScalarFieldEnum | Images_tutorialScalarFieldEnum[]
+  }
+
+  /**
+   * images_tutorial findMany
+   */
+  export type images_tutorialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * Filter, which images_tutorials to fetch.
+     */
+    where?: images_tutorialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images_tutorials to fetch.
+     */
+    orderBy?: images_tutorialOrderByWithRelationInput | images_tutorialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing images_tutorials.
+     */
+    cursor?: images_tutorialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images_tutorials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images_tutorials.
+     */
+    skip?: number
+    distinct?: Images_tutorialScalarFieldEnum | Images_tutorialScalarFieldEnum[]
+  }
+
+  /**
+   * images_tutorial create
+   */
+  export type images_tutorialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * The data needed to create a images_tutorial.
+     */
+    data: XOR<images_tutorialCreateInput, images_tutorialUncheckedCreateInput>
+  }
+
+  /**
+   * images_tutorial createMany
+   */
+  export type images_tutorialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many images_tutorials.
+     */
+    data: images_tutorialCreateManyInput | images_tutorialCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * images_tutorial update
+   */
+  export type images_tutorialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * The data needed to update a images_tutorial.
+     */
+    data: XOR<images_tutorialUpdateInput, images_tutorialUncheckedUpdateInput>
+    /**
+     * Choose, which images_tutorial to update.
+     */
+    where: images_tutorialWhereUniqueInput
+  }
+
+  /**
+   * images_tutorial updateMany
+   */
+  export type images_tutorialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update images_tutorials.
+     */
+    data: XOR<images_tutorialUpdateManyMutationInput, images_tutorialUncheckedUpdateManyInput>
+    /**
+     * Filter which images_tutorials to update
+     */
+    where?: images_tutorialWhereInput
+    /**
+     * Limit how many images_tutorials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * images_tutorial upsert
+   */
+  export type images_tutorialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * The filter to search for the images_tutorial to update in case it exists.
+     */
+    where: images_tutorialWhereUniqueInput
+    /**
+     * In case the images_tutorial found by the `where` argument doesn't exist, create a new images_tutorial with this data.
+     */
+    create: XOR<images_tutorialCreateInput, images_tutorialUncheckedCreateInput>
+    /**
+     * In case the images_tutorial was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<images_tutorialUpdateInput, images_tutorialUncheckedUpdateInput>
+  }
+
+  /**
+   * images_tutorial delete
+   */
+  export type images_tutorialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
+    /**
+     * Filter which images_tutorial to delete.
+     */
+    where: images_tutorialWhereUniqueInput
+  }
+
+  /**
+   * images_tutorial deleteMany
+   */
+  export type images_tutorialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which images_tutorials to delete
+     */
+    where?: images_tutorialWhereInput
+    /**
+     * Limit how many images_tutorials to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * images_tutorial without action
+   */
+  export type images_tutorialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images_tutorial
+     */
+    select?: images_tutorialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the images_tutorial
+     */
+    omit?: images_tutorialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: images_tutorialInclude<ExtArgs> | null
   }
 
 
@@ -3032,6 +4139,17 @@ export namespace Prisma {
   };
 
   export type Tutorial_detailScalarFieldEnum = (typeof Tutorial_detailScalarFieldEnum)[keyof typeof Tutorial_detailScalarFieldEnum]
+
+
+  export const Images_tutorialScalarFieldEnum: {
+    id: 'id',
+    tutorial_detail_id: 'tutorial_detail_id',
+    url: 'url',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Images_tutorialScalarFieldEnum = (typeof Images_tutorialScalarFieldEnum)[keyof typeof Images_tutorialScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3084,6 +4202,14 @@ export namespace Prisma {
   };
 
   export type tutorial_detailOrderByRelevanceFieldEnum = (typeof tutorial_detailOrderByRelevanceFieldEnum)[keyof typeof tutorial_detailOrderByRelevanceFieldEnum]
+
+
+  export const images_tutorialOrderByRelevanceFieldEnum: {
+    tutorial_detail_id: 'tutorial_detail_id',
+    url: 'url'
+  };
+
+  export type images_tutorialOrderByRelevanceFieldEnum = (typeof images_tutorialOrderByRelevanceFieldEnum)[keyof typeof images_tutorialOrderByRelevanceFieldEnum]
 
 
   /**
@@ -3222,6 +4348,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"tutorial_detail"> | Date | string
     updated_at?: DateTimeFilter<"tutorial_detail"> | Date | string
     master_tutorial?: XOR<Master_tutorialScalarRelationFilter, master_tutorialWhereInput>
+    images_tutorial?: Images_tutorialListRelationFilter
   }
 
   export type tutorial_detailOrderByWithRelationInput = {
@@ -3234,6 +4361,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     master_tutorial?: master_tutorialOrderByWithRelationInput
+    images_tutorial?: images_tutorialOrderByRelationAggregateInput
     _relevance?: tutorial_detailOrderByRelevanceInput
   }
 
@@ -3250,6 +4378,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"tutorial_detail"> | Date | string
     updated_at?: DateTimeFilter<"tutorial_detail"> | Date | string
     master_tutorial?: XOR<Master_tutorialScalarRelationFilter, master_tutorialWhereInput>
+    images_tutorial?: Images_tutorialListRelationFilter
   }, "id">
 
   export type tutorial_detailOrderByWithAggregationInput = {
@@ -3280,6 +4409,64 @@ export namespace Prisma {
     content_json?: JsonWithAggregatesFilter<"tutorial_detail">
     created_at?: DateTimeWithAggregatesFilter<"tutorial_detail"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"tutorial_detail"> | Date | string
+  }
+
+  export type images_tutorialWhereInput = {
+    AND?: images_tutorialWhereInput | images_tutorialWhereInput[]
+    OR?: images_tutorialWhereInput[]
+    NOT?: images_tutorialWhereInput | images_tutorialWhereInput[]
+    id?: IntFilter<"images_tutorial"> | number
+    tutorial_detail_id?: StringFilter<"images_tutorial"> | string
+    url?: StringFilter<"images_tutorial"> | string
+    created_at?: DateTimeFilter<"images_tutorial"> | Date | string
+    updated_at?: DateTimeFilter<"images_tutorial"> | Date | string
+    tutorial_detail?: XOR<Tutorial_detailScalarRelationFilter, tutorial_detailWhereInput>
+  }
+
+  export type images_tutorialOrderByWithRelationInput = {
+    id?: SortOrder
+    tutorial_detail_id?: SortOrder
+    url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    tutorial_detail?: tutorial_detailOrderByWithRelationInput
+    _relevance?: images_tutorialOrderByRelevanceInput
+  }
+
+  export type images_tutorialWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: images_tutorialWhereInput | images_tutorialWhereInput[]
+    OR?: images_tutorialWhereInput[]
+    NOT?: images_tutorialWhereInput | images_tutorialWhereInput[]
+    tutorial_detail_id?: StringFilter<"images_tutorial"> | string
+    url?: StringFilter<"images_tutorial"> | string
+    created_at?: DateTimeFilter<"images_tutorial"> | Date | string
+    updated_at?: DateTimeFilter<"images_tutorial"> | Date | string
+    tutorial_detail?: XOR<Tutorial_detailScalarRelationFilter, tutorial_detailWhereInput>
+  }, "id">
+
+  export type images_tutorialOrderByWithAggregationInput = {
+    id?: SortOrder
+    tutorial_detail_id?: SortOrder
+    url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: images_tutorialCountOrderByAggregateInput
+    _avg?: images_tutorialAvgOrderByAggregateInput
+    _max?: images_tutorialMaxOrderByAggregateInput
+    _min?: images_tutorialMinOrderByAggregateInput
+    _sum?: images_tutorialSumOrderByAggregateInput
+  }
+
+  export type images_tutorialScalarWhereWithAggregatesInput = {
+    AND?: images_tutorialScalarWhereWithAggregatesInput | images_tutorialScalarWhereWithAggregatesInput[]
+    OR?: images_tutorialScalarWhereWithAggregatesInput[]
+    NOT?: images_tutorialScalarWhereWithAggregatesInput | images_tutorialScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"images_tutorial"> | number
+    tutorial_detail_id?: StringWithAggregatesFilter<"images_tutorial"> | string
+    url?: StringWithAggregatesFilter<"images_tutorial"> | string
+    created_at?: DateTimeWithAggregatesFilter<"images_tutorial"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"images_tutorial"> | Date | string
   }
 
   export type master_tutorialCreateInput = {
@@ -3369,6 +4556,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     master_tutorial: master_tutorialCreateNestedOneWithoutTutorial_detailInput
+    images_tutorial?: images_tutorialCreateNestedManyWithoutTutorial_detailInput
   }
 
   export type tutorial_detailUncheckedCreateInput = {
@@ -3380,6 +4568,7 @@ export namespace Prisma {
     content_json: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    images_tutorial?: images_tutorialUncheckedCreateNestedManyWithoutTutorial_detailInput
   }
 
   export type tutorial_detailUpdateInput = {
@@ -3391,6 +4580,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     master_tutorial?: master_tutorialUpdateOneRequiredWithoutTutorial_detailNestedInput
+    images_tutorial?: images_tutorialUpdateManyWithoutTutorial_detailNestedInput
   }
 
   export type tutorial_detailUncheckedUpdateInput = {
@@ -3402,6 +4592,7 @@ export namespace Prisma {
     content_json?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    images_tutorial?: images_tutorialUncheckedUpdateManyWithoutTutorial_detailNestedInput
   }
 
   export type tutorial_detailCreateManyInput = {
@@ -3432,6 +4623,58 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     content_json?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type images_tutorialCreateInput = {
+    url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    tutorial_detail: tutorial_detailCreateNestedOneWithoutImages_tutorialInput
+  }
+
+  export type images_tutorialUncheckedCreateInput = {
+    id?: number
+    tutorial_detail_id: string
+    url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type images_tutorialUpdateInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    tutorial_detail?: tutorial_detailUpdateOneRequiredWithoutImages_tutorialNestedInput
+  }
+
+  export type images_tutorialUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tutorial_detail_id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type images_tutorialCreateManyInput = {
+    id?: number
+    tutorial_detail_id: string
+    url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type images_tutorialUpdateManyMutationInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type images_tutorialUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tutorial_detail_id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3606,6 +4849,16 @@ export namespace Prisma {
     isNot?: master_tutorialWhereInput
   }
 
+  export type Images_tutorialListRelationFilter = {
+    every?: images_tutorialWhereInput
+    some?: images_tutorialWhereInput
+    none?: images_tutorialWhereInput
+  }
+
+  export type images_tutorialOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type tutorial_detailOrderByRelevanceInput = {
     fields: tutorial_detailOrderByRelevanceFieldEnum | tutorial_detailOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -3679,6 +4932,49 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type Tutorial_detailScalarRelationFilter = {
+    is?: tutorial_detailWhereInput
+    isNot?: tutorial_detailWhereInput
+  }
+
+  export type images_tutorialOrderByRelevanceInput = {
+    fields: images_tutorialOrderByRelevanceFieldEnum | images_tutorialOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type images_tutorialCountOrderByAggregateInput = {
+    id?: SortOrder
+    tutorial_detail_id?: SortOrder
+    url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type images_tutorialAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type images_tutorialMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tutorial_detail_id?: SortOrder
+    url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type images_tutorialMinOrderByAggregateInput = {
+    id?: SortOrder
+    tutorial_detail_id?: SortOrder
+    url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type images_tutorialSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type tutorial_detailCreateNestedManyWithoutMaster_tutorialInput = {
     create?: XOR<tutorial_detailCreateWithoutMaster_tutorialInput, tutorial_detailUncheckedCreateWithoutMaster_tutorialInput> | tutorial_detailCreateWithoutMaster_tutorialInput[] | tutorial_detailUncheckedCreateWithoutMaster_tutorialInput[]
     connectOrCreate?: tutorial_detailCreateOrConnectWithoutMaster_tutorialInput | tutorial_detailCreateOrConnectWithoutMaster_tutorialInput[]
@@ -3743,12 +5039,68 @@ export namespace Prisma {
     connect?: master_tutorialWhereUniqueInput
   }
 
+  export type images_tutorialCreateNestedManyWithoutTutorial_detailInput = {
+    create?: XOR<images_tutorialCreateWithoutTutorial_detailInput, images_tutorialUncheckedCreateWithoutTutorial_detailInput> | images_tutorialCreateWithoutTutorial_detailInput[] | images_tutorialUncheckedCreateWithoutTutorial_detailInput[]
+    connectOrCreate?: images_tutorialCreateOrConnectWithoutTutorial_detailInput | images_tutorialCreateOrConnectWithoutTutorial_detailInput[]
+    createMany?: images_tutorialCreateManyTutorial_detailInputEnvelope
+    connect?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+  }
+
+  export type images_tutorialUncheckedCreateNestedManyWithoutTutorial_detailInput = {
+    create?: XOR<images_tutorialCreateWithoutTutorial_detailInput, images_tutorialUncheckedCreateWithoutTutorial_detailInput> | images_tutorialCreateWithoutTutorial_detailInput[] | images_tutorialUncheckedCreateWithoutTutorial_detailInput[]
+    connectOrCreate?: images_tutorialCreateOrConnectWithoutTutorial_detailInput | images_tutorialCreateOrConnectWithoutTutorial_detailInput[]
+    createMany?: images_tutorialCreateManyTutorial_detailInputEnvelope
+    connect?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+  }
+
   export type master_tutorialUpdateOneRequiredWithoutTutorial_detailNestedInput = {
     create?: XOR<master_tutorialCreateWithoutTutorial_detailInput, master_tutorialUncheckedCreateWithoutTutorial_detailInput>
     connectOrCreate?: master_tutorialCreateOrConnectWithoutTutorial_detailInput
     upsert?: master_tutorialUpsertWithoutTutorial_detailInput
     connect?: master_tutorialWhereUniqueInput
     update?: XOR<XOR<master_tutorialUpdateToOneWithWhereWithoutTutorial_detailInput, master_tutorialUpdateWithoutTutorial_detailInput>, master_tutorialUncheckedUpdateWithoutTutorial_detailInput>
+  }
+
+  export type images_tutorialUpdateManyWithoutTutorial_detailNestedInput = {
+    create?: XOR<images_tutorialCreateWithoutTutorial_detailInput, images_tutorialUncheckedCreateWithoutTutorial_detailInput> | images_tutorialCreateWithoutTutorial_detailInput[] | images_tutorialUncheckedCreateWithoutTutorial_detailInput[]
+    connectOrCreate?: images_tutorialCreateOrConnectWithoutTutorial_detailInput | images_tutorialCreateOrConnectWithoutTutorial_detailInput[]
+    upsert?: images_tutorialUpsertWithWhereUniqueWithoutTutorial_detailInput | images_tutorialUpsertWithWhereUniqueWithoutTutorial_detailInput[]
+    createMany?: images_tutorialCreateManyTutorial_detailInputEnvelope
+    set?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    disconnect?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    delete?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    connect?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    update?: images_tutorialUpdateWithWhereUniqueWithoutTutorial_detailInput | images_tutorialUpdateWithWhereUniqueWithoutTutorial_detailInput[]
+    updateMany?: images_tutorialUpdateManyWithWhereWithoutTutorial_detailInput | images_tutorialUpdateManyWithWhereWithoutTutorial_detailInput[]
+    deleteMany?: images_tutorialScalarWhereInput | images_tutorialScalarWhereInput[]
+  }
+
+  export type images_tutorialUncheckedUpdateManyWithoutTutorial_detailNestedInput = {
+    create?: XOR<images_tutorialCreateWithoutTutorial_detailInput, images_tutorialUncheckedCreateWithoutTutorial_detailInput> | images_tutorialCreateWithoutTutorial_detailInput[] | images_tutorialUncheckedCreateWithoutTutorial_detailInput[]
+    connectOrCreate?: images_tutorialCreateOrConnectWithoutTutorial_detailInput | images_tutorialCreateOrConnectWithoutTutorial_detailInput[]
+    upsert?: images_tutorialUpsertWithWhereUniqueWithoutTutorial_detailInput | images_tutorialUpsertWithWhereUniqueWithoutTutorial_detailInput[]
+    createMany?: images_tutorialCreateManyTutorial_detailInputEnvelope
+    set?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    disconnect?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    delete?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    connect?: images_tutorialWhereUniqueInput | images_tutorialWhereUniqueInput[]
+    update?: images_tutorialUpdateWithWhereUniqueWithoutTutorial_detailInput | images_tutorialUpdateWithWhereUniqueWithoutTutorial_detailInput[]
+    updateMany?: images_tutorialUpdateManyWithWhereWithoutTutorial_detailInput | images_tutorialUpdateManyWithWhereWithoutTutorial_detailInput[]
+    deleteMany?: images_tutorialScalarWhereInput | images_tutorialScalarWhereInput[]
+  }
+
+  export type tutorial_detailCreateNestedOneWithoutImages_tutorialInput = {
+    create?: XOR<tutorial_detailCreateWithoutImages_tutorialInput, tutorial_detailUncheckedCreateWithoutImages_tutorialInput>
+    connectOrCreate?: tutorial_detailCreateOrConnectWithoutImages_tutorialInput
+    connect?: tutorial_detailWhereUniqueInput
+  }
+
+  export type tutorial_detailUpdateOneRequiredWithoutImages_tutorialNestedInput = {
+    create?: XOR<tutorial_detailCreateWithoutImages_tutorialInput, tutorial_detailUncheckedCreateWithoutImages_tutorialInput>
+    connectOrCreate?: tutorial_detailCreateOrConnectWithoutImages_tutorialInput
+    upsert?: tutorial_detailUpsertWithoutImages_tutorialInput
+    connect?: tutorial_detailWhereUniqueInput
+    update?: XOR<XOR<tutorial_detailUpdateToOneWithWhereWithoutImages_tutorialInput, tutorial_detailUpdateWithoutImages_tutorialInput>, tutorial_detailUncheckedUpdateWithoutImages_tutorialInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3878,6 +5230,7 @@ export namespace Prisma {
     content_json: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    images_tutorial?: images_tutorialCreateNestedManyWithoutTutorial_detailInput
   }
 
   export type tutorial_detailUncheckedCreateWithoutMaster_tutorialInput = {
@@ -3888,6 +5241,7 @@ export namespace Prisma {
     content_json: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    images_tutorial?: images_tutorialUncheckedCreateNestedManyWithoutTutorial_detailInput
   }
 
   export type tutorial_detailCreateOrConnectWithoutMaster_tutorialInput = {
@@ -3956,6 +5310,29 @@ export namespace Prisma {
     create: XOR<master_tutorialCreateWithoutTutorial_detailInput, master_tutorialUncheckedCreateWithoutTutorial_detailInput>
   }
 
+  export type images_tutorialCreateWithoutTutorial_detailInput = {
+    url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type images_tutorialUncheckedCreateWithoutTutorial_detailInput = {
+    id?: number
+    url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type images_tutorialCreateOrConnectWithoutTutorial_detailInput = {
+    where: images_tutorialWhereUniqueInput
+    create: XOR<images_tutorialCreateWithoutTutorial_detailInput, images_tutorialUncheckedCreateWithoutTutorial_detailInput>
+  }
+
+  export type images_tutorialCreateManyTutorial_detailInputEnvelope = {
+    data: images_tutorialCreateManyTutorial_detailInput | images_tutorialCreateManyTutorial_detailInput[]
+    skipDuplicates?: boolean
+  }
+
   export type master_tutorialUpsertWithoutTutorial_detailInput = {
     update: XOR<master_tutorialUpdateWithoutTutorial_detailInput, master_tutorialUncheckedUpdateWithoutTutorial_detailInput>
     create: XOR<master_tutorialCreateWithoutTutorial_detailInput, master_tutorialUncheckedCreateWithoutTutorial_detailInput>
@@ -3988,6 +5365,93 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type images_tutorialUpsertWithWhereUniqueWithoutTutorial_detailInput = {
+    where: images_tutorialWhereUniqueInput
+    update: XOR<images_tutorialUpdateWithoutTutorial_detailInput, images_tutorialUncheckedUpdateWithoutTutorial_detailInput>
+    create: XOR<images_tutorialCreateWithoutTutorial_detailInput, images_tutorialUncheckedCreateWithoutTutorial_detailInput>
+  }
+
+  export type images_tutorialUpdateWithWhereUniqueWithoutTutorial_detailInput = {
+    where: images_tutorialWhereUniqueInput
+    data: XOR<images_tutorialUpdateWithoutTutorial_detailInput, images_tutorialUncheckedUpdateWithoutTutorial_detailInput>
+  }
+
+  export type images_tutorialUpdateManyWithWhereWithoutTutorial_detailInput = {
+    where: images_tutorialScalarWhereInput
+    data: XOR<images_tutorialUpdateManyMutationInput, images_tutorialUncheckedUpdateManyWithoutTutorial_detailInput>
+  }
+
+  export type images_tutorialScalarWhereInput = {
+    AND?: images_tutorialScalarWhereInput | images_tutorialScalarWhereInput[]
+    OR?: images_tutorialScalarWhereInput[]
+    NOT?: images_tutorialScalarWhereInput | images_tutorialScalarWhereInput[]
+    id?: IntFilter<"images_tutorial"> | number
+    tutorial_detail_id?: StringFilter<"images_tutorial"> | string
+    url?: StringFilter<"images_tutorial"> | string
+    created_at?: DateTimeFilter<"images_tutorial"> | Date | string
+    updated_at?: DateTimeFilter<"images_tutorial"> | Date | string
+  }
+
+  export type tutorial_detailCreateWithoutImages_tutorialInput = {
+    id: string
+    type: string
+    order: number
+    status: string
+    content_json: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    master_tutorial: master_tutorialCreateNestedOneWithoutTutorial_detailInput
+  }
+
+  export type tutorial_detailUncheckedCreateWithoutImages_tutorialInput = {
+    id: string
+    master_tutorial_id: number
+    type: string
+    order: number
+    status: string
+    content_json: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type tutorial_detailCreateOrConnectWithoutImages_tutorialInput = {
+    where: tutorial_detailWhereUniqueInput
+    create: XOR<tutorial_detailCreateWithoutImages_tutorialInput, tutorial_detailUncheckedCreateWithoutImages_tutorialInput>
+  }
+
+  export type tutorial_detailUpsertWithoutImages_tutorialInput = {
+    update: XOR<tutorial_detailUpdateWithoutImages_tutorialInput, tutorial_detailUncheckedUpdateWithoutImages_tutorialInput>
+    create: XOR<tutorial_detailCreateWithoutImages_tutorialInput, tutorial_detailUncheckedCreateWithoutImages_tutorialInput>
+    where?: tutorial_detailWhereInput
+  }
+
+  export type tutorial_detailUpdateToOneWithWhereWithoutImages_tutorialInput = {
+    where?: tutorial_detailWhereInput
+    data: XOR<tutorial_detailUpdateWithoutImages_tutorialInput, tutorial_detailUncheckedUpdateWithoutImages_tutorialInput>
+  }
+
+  export type tutorial_detailUpdateWithoutImages_tutorialInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    content_json?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    master_tutorial?: master_tutorialUpdateOneRequiredWithoutTutorial_detailNestedInput
+  }
+
+  export type tutorial_detailUncheckedUpdateWithoutImages_tutorialInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    master_tutorial_id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    content_json?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type tutorial_detailCreateManyMaster_tutorialInput = {
     id: string
     type: string
@@ -4006,6 +5470,7 @@ export namespace Prisma {
     content_json?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    images_tutorial?: images_tutorialUpdateManyWithoutTutorial_detailNestedInput
   }
 
   export type tutorial_detailUncheckedUpdateWithoutMaster_tutorialInput = {
@@ -4016,6 +5481,7 @@ export namespace Prisma {
     content_json?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    images_tutorial?: images_tutorialUncheckedUpdateManyWithoutTutorial_detailNestedInput
   }
 
   export type tutorial_detailUncheckedUpdateManyWithoutMaster_tutorialInput = {
@@ -4024,6 +5490,33 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     content_json?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type images_tutorialCreateManyTutorial_detailInput = {
+    id?: number
+    url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type images_tutorialUpdateWithoutTutorial_detailInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type images_tutorialUncheckedUpdateWithoutTutorial_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type images_tutorialUncheckedUpdateManyWithoutTutorial_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

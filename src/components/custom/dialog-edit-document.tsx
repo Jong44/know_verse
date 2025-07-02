@@ -27,7 +27,7 @@ import { useForm } from 'react-hook-form'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { DocumentService } from '@/services/document-service'
 import { toast } from "sonner"
- 
+
 
 
 interface DialogEditDocumentProps {
@@ -45,21 +45,26 @@ const DialogEditDocument = ({
   documentTitle,
   documentSubject,
 }: DialogEditDocumentProps) => {
-const form = useForm<z.infer<typeof FormSchema>>({
-  resolver: zodResolver(FormSchema),
-});
 
-useEffect(() => {
-  form.reset({
-    judul: documentTitle,
-    kode_matakuliah: documentSubject,
+  const [matkul, setMatkul] = React.useState<any>([])
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
   });
-}, [documentTitle, documentSubject]);
+
+  useEffect(() => {
+
+    getMataKuliahOptions();
+
+    form.reset({
+      judul: documentTitle,
+      kode_matakuliah: documentSubject,
+    });
+  }, [documentTitle, documentSubject]);
 
   const { register, handleSubmit, formState: { errors } } = form
 
 
-  async function onSubmit(data: z.infer<typeof FormSchema>)   {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     const { judul, kode_matakuliah } = data
 
     const response = fetch('/api/tutorial', {
@@ -70,22 +75,46 @@ useEffect(() => {
       body: JSON.stringify({
         judul,
         kode_matakuliah,
-        createor_email: 'johnDoe', 
+        createor_email: 'johnDoe',
       }),
     })
-    .then((res) => {
-      if (res.status === 201) {
-        toast.success('Dokumen berhasil dibuat')
-        return res.json()
-      } else {
-        toast.error('Gagal membuat dokumen')
-        throw new Error('Gagal membuat dokumen')
-      }
-    })
+      .then((res) => {
+        if (res.status === 201) {
+          toast.success('Dokumen berhasil dibuat')
+          return res.json()
+        } else {
+          toast.error('Gagal membuat dokumen')
+          throw new Error('Gagal membuat dokumen')
+        }
+      })
 
-    
+
 
     form.reset()
+  }
+
+  const getMataKuliahOptions = async () => {
+    console.log('localStorage.getItem("token")', localStorage.getItem('token'))
+    if (localStorage.getItem('token') === null) {
+      toast.error('Anda harus login terlebih dahulu')
+      return
+    }
+    const res = await fetch('https://jwt-auth-eight-neon.vercel.app/getMakul', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch mata kuliah options')
+    }
+    const data = await res.json()
+
+    console.log('Mata Kuliah Options:', data)
+
+    setMatkul(data.data)
   }
 
 
@@ -140,10 +169,11 @@ useEffect(() => {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Daftar Mata Kuliah</SelectLabel>
-                          <SelectItem value="pbo">Pemrograman Berorientasi Objek</SelectItem>
-                          <SelectItem value="ai">Kecerdasan Buatan</SelectItem>
-                          <SelectItem value="ml">Machine Learning</SelectItem>
-                          <SelectItem value="network">Jaringan Komputer</SelectItem>
+                          {matkul && matkul.map((item, index) => (
+                            <SelectItem key={index.kdmk} value={item.kdmk}>
+                              {item.nama}
+                            </SelectItem>
+                          ))}
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -154,10 +184,10 @@ useEffect(() => {
             </div>
           </div>
           <DialogFooter className="pt-2">
-          <DialogClose asChild>
-            <Button type="submit">Edit Dokumen</Button>
-          </DialogClose>
-        </DialogFooter>
+            <DialogClose asChild>
+              <Button type="submit">Edit Dokumen</Button>
+            </DialogClose>
+          </DialogFooter>
         </form>
       </Form>
 

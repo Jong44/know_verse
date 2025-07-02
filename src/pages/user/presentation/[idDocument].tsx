@@ -20,8 +20,7 @@ const Index = () => {
   const [document, setDocument] = useState<DocType | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchDocument = async () => {
+  const fetchDocument = async () => {
       try {
         const response = await fetch(`/api/tutorial/presentation/${idDocument}`, {
           method: 'GET',
@@ -47,10 +46,14 @@ const Index = () => {
         setLoading(false);
       }
     }
-    if (idDocument) {
-      fetchDocument();
-    }
-  }, [idDocument]);
+
+    // realtime update with interval
+    useEffect(() => {
+      const interval = setInterval(() => {
+        fetchDocument();
+      }, 5000); // fetch every 5 seconds
+      return () => clearInterval(interval); // cleanup on unmount
+    }, [idDocument]);
   
 
   if(loading) {

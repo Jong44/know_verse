@@ -26,8 +26,7 @@ const Index = () => {
   const [document, setDocument] = useState<DocType | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchDocument = async () => {
+  const fetchDocument = async () => {
       try {
         const response = await fetch(`/api/tutorial/finished/${idDocument}`, {
           method: 'GET',
@@ -48,6 +47,9 @@ const Index = () => {
         setLoading(false);
       }
     }
+
+
+  useEffect(() => {
     if (idDocument) {
       fetchDocument();
     }

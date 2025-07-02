@@ -23,15 +23,14 @@ interface LoginData {
         const data: dataResponse = await response.json();
   
         if (response.ok && data.refreshToken) {
-          localStorage.setItem("token", JSON.stringify(data.refreshToken));
-          return true;
+          return response;
         } else {
           console.error("Login failed:", data);
-          return false;
+          return response;
         }
       } catch (error) {
         console.error("Error:", error);
-        return false;
+        return error;
       }
     };
   
@@ -48,7 +47,7 @@ interface LoginData {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${JSON.parse(token)}`,
+            Authorization: `Bearer ${(token)}`,
           },
         });
 
